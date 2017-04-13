@@ -23,7 +23,7 @@ def require_info_login(f):
             else: authorized = True
 
         if authorized:
-            response = await f(request, s, sid, *args, **kwargs)
+            response = await f(request, s, sid, pwd, *args, **kwargs)
             return response
         else:
             return Response(body = b'{}',
