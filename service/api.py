@@ -6,12 +6,11 @@ api = web.Application()
 # ====== async view handlers ======
 @require_info_login
 async def info_login_api(request, s, pwd, sid):
-    cookies = s.__dict__.get('_cookies').get('portal.ccnu.edu.cn')
-    BIGipServerpool_portal = cookies.get('BIGipServerpool_portal').__dict__['_value']
+    cookies = s.__dict__.get('_cookies').get('122.204.187.6')
+    BIGipServerpool_jwc_xk = cookies.get('BIGipServerpool_jwc_xk').__dict__['_value']
     JSESSIONID = cookies.get('JSESSIONID').__dict__['_value']
     return web.json_response({'cookie': {
-        "UM_distinctid": "15b5d8be64f12e-0bf2dfe294ca19-396a7805-13c680-15b5d8be65e45",
-        'BIGipServerpool_portal': BIGipServerpool_portal,
+        'BIGipServerpool_jwc_xk': BIGipServerpool_jwc_xk,
         'JSESSIONID': JSESSIONID
     }, 'sid': sid, 'pwd': pwd})
 # =================================
