@@ -12,7 +12,7 @@ async def info_login_api(request, s, pwd, sid):
     return web.json_response({'cookie': {
         'BIGipServerpool_jwc_xk': BIGipServerpool_jwc_xk,
         'JSESSIONID': JSESSIONID
-    }, 'sid': sid, 'pwd': pwd})
+    }, 'sid': sid})
 # =================================
 
 # ====== url --------- maps  ======
