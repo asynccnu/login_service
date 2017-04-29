@@ -5,10 +5,14 @@ api = web.Application()
 
 # ====== async view handlers ======
 @require_info_login
-async def info_login_api(request, s, pwd, sid):
-    cookies = s.__dict__.get('_cookies').get('122.204.187.6')
-    BIGipServerpool_jwc_xk = cookies.get('BIGipServerpool_jwc_xk').__dict__['_value']
-    JSESSIONID = cookies.get('JSESSIONID').__dict__['_value']
+async def info_login_api(request, s, sid):
+    if type(s) == dict:
+        BIGipServerpool_jwc_xk = s.get('BIGipServerpool_jwc_xk')
+        JSESSIONID = s.get('JSESSIONID')
+    else:
+        cookies = s.__dict__.get('_cookies').get('122.204.187.6')
+        BIGipServerpool_jwc_xk = cookies.get('BIGipServerpool_jwc_xk').__dict__['_value']
+        JSESSIONID = cookies.get('JSESSIONID').__dict__['_value']
     return web.json_response({'cookie': {
         'BIGipServerpool_jwc_xk': BIGipServerpool_jwc_xk,
         'JSESSIONID': JSESSIONID
