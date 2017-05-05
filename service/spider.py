@@ -3,6 +3,7 @@ import asyncio
 import aiohttp
 
 info_login_url = "http://portal.ccnu.edu.cn/loginAction.do"
+login_ticket_url = "http://122.204.187.6/hzsflogin?ticket=wKhQEg0HHcVx8NYCNHI2QMF64NBGV7CKV8HT"
 link_url = "http://portal.ccnu.edu.cn/roamingAction.do?appId=XK"
 table_url = "http://122.204.187.6/kbcx/xskbcx_cxXsKb.html?gnmkdmKey=N253508&sessionUserKey=%s"
 
