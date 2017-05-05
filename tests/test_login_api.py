@@ -8,8 +8,8 @@ def test_info_login_api(app):
         with TestClient(app, loop=loop) as client:
             
             async def _test_info_login_api():
-                auth_header1 = {'Authorization': 'Basic %s' % base64.b64encode(b'2014210761:2014210761')}
-                auth_header2 = {'Authorization': 'Basic %s' % base64.b64encode(b'2014210761:fuckccnu')}
+                auth_header1 = {'Authorization': 'Basic %s' % base64.b64encode(b'2014210761:2014210761').decode()}
+                auth_header2 = {'Authorization': 'Basic %s' % base64.b64encode(b'2014210761:fuckccnu').decode()}
                 auth_header3 = {}
                 resp = await client.get('/api/info/login/', headers=auth_header1)
                 assert resp.status == 200
@@ -20,4 +20,3 @@ def test_info_login_api(app):
                 print('... test info login api [ok]')
 
             loop.run_until_complete(_test_info_login_api())
-            loop.close()
