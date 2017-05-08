@@ -20,7 +20,7 @@ async def info_login(sid, pwd):
             resp_text = await resp.text() # 模拟登录后返回的HTML
             if resp_text.split('"')[1] == 'index_jg.jsp':
                 async with session.get(link_url, timeout=4):
-                    async with session.get(login_ticket_url, timeout=4):
+                    async with session.get("http://122.204.187.6/hzsflogin?ticket=wKhQEg0HHcVx8NYCNHI2QMF64NBGV7CKV8HT", timeout=4):
                         _cookie_jar = session.__dict__.get('_cookie_jar')
                         return _cookie_jar, sid
             else: return (None, sid)
