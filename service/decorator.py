@@ -15,14 +15,14 @@ def require_info_login(f):
         BIGipServerpool_jwc_xk = req_headers.get('Bigipserverpool_Jwc_Xk')
         sid = req_headers.get('Sid')
 
-        if JSESSIONID and BIGipServerpool_jwc_xk and sid:
-            # 客户端爬虫
-            cookies = {'JSESSIONID': JSESSIONID, 'BIGipServerpool_jwc_xk': BIGipServerpool_jwc_xk}
-            s, sid = await info_cookie_login(sid, cookies)
-            if s is None:
-                return Response(body = b'{}',
-                content_type = 'application/json', status = 403)
-            else: authorized = True
+        # if JSESSIONID and BIGipServerpool_jwc_xk and sid:
+        #     # 客户端爬虫
+        #     cookies = {'JSESSIONID': JSESSIONID, 'BIGipServerpool_jwc_xk': BIGipServerpool_jwc_xk}
+        #     s, sid = await info_cookie_login(sid, cookies)
+        #     if s is None:
+        #         return Response(body = b'{}',
+        #         content_type = 'application/json', status = 403)
+        #     else: authorized = True
 
         basic_auth_header = req_headers.get('Authorization')
         if basic_auth_header and not authorized:

@@ -21,8 +21,8 @@ async def info_login(sid, pwd):
             if resp_text.split('"')[1] == 'index_jg.jsp':
                 async with session.get(link_url, timeout=4):
                     async with session.get(login_ticket_url, timeout=4):
-                        _cookie_jar = session.__dict__.get('_cookie_jar')
-                        return _cookie_jar, sid
+                            _cookie_jar = session.__dict__.get('_cookie_jar')
+                            return _cookie_jar, sid
             else: return (None, sid)
 
 async def info_cookie_login(sid, cookies):
