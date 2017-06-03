@@ -1,5 +1,4 @@
 import json
-import asyncio
 import aiohttp
 
 info_login_url = "http://portal.ccnu.edu.cn/loginAction.do"
@@ -21,7 +20,13 @@ async def info_login(sid, pwd):
             resp_text = await resp.text() # 模拟登录后返回的HTML
             if resp_text.split('"')[1] == 'index_jg.jsp':
                 async with session.get(link_url, timeout=4):
-                    async with session.get(login_ticket_url, timeout=4):
+                    _cookie_jar = session.__dict__.get('_cookie_jar')
+                    print(_cookie_jar.__dict__)
+                    print("\n")
+                    async with session.get(login_ticket_url):
+                        _cookie_jar = session.__dict__.get('_cookie_jar')
+                        print(_cookie_jar.__dict__)
+                        print("\n")
                         async with session.get(login_tickitLogin_url, timeout=4):
                             _cookie_jar = session.__dict__.get('_cookie_jar')
                             return _cookie_jar, sid
@@ -34,5 +39,5 @@ async def info_cookie_login(sid, cookies):
             try:
                 await resp.json()
                 return cookies, sid
-            except json.decoder.JSONDecodeError as e:
+            except json.decoder.JSONDecodeError:
                 return None, sid
