@@ -1,24 +1,26 @@
+import base64
 from aiohttp import web
-from .decorator import require_info_login
+from .spiders import info_login
 
 api = web.Application()
 
-# ====== async view handlers ======
-@require_info_login
-async def info_login_api(request, s, sid):
-    if type(s) == dict:
-        BIGipServerpool_jwc_xk = s.get('BIGipServerpool_jwc_xk')
-        JSESSIONID = s.get('JSESSIONID')
-    else:
-        cookies = s.__dict__.get('_cookies').get('122.204.187.6')
-        BIGipServerpool_jwc_xk = cookies.get('BIGipServerpool_jwc_xk').__dict__['_value']
-        JSESSIONID = cookies.get('JSESSIONID').__dict__['_value']
-    return web.json_response({'cookie': {
-        'BIGipServerpool_jwc_xk': BIGipServerpool_jwc_xk,
-        'JSESSIONID': JSESSIONID
-    }, 'sid': sid})
-# =================================
+async def info_login_api(request):
+    status = 401
+    headers_dict = dict(request.headers)
+    basic_auth_header = headers_dict.get('Authorization')
 
-# ====== url --------- maps  ======
+    if basic_auth_header:
+        auth_header = basic_auth_header[6:]
+        uid, pwd = base64.b64decode(auth_header).decode().split(':')
+        authorized = await info_login(uid, pwd)
+        if authorized:
+            status = 200
+        else:
+            status = 403
+    return web.Response(
+        body = b'{}',
+        content_type = 'application/json',
+        status = status
+    )
+
 api.router.add_route('GET', '/info/login/', info_login_api, name='info_login_api')
-# =================================

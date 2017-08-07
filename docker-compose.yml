@@ -1,7 +1,6 @@
 # ------ login_api ------
 login_api:
-    # build: .
-    image: daocloud.io/neo1218/info_login_service:master
+    build: .
     env_file:
         - container.env
     command: gunicorn wsgi:app -k aiohttp.worker.GunicornWebWorker -b 0.0.0.0:8080 --log-level DEBUG

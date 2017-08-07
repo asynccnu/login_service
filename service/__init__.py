@@ -11,15 +11,9 @@ def create_app():
     secret_key = base64.urlsafe_b64decode(fernet_key)
     # ====== app set ======
     setup(app, EncryptedCookieStorage(secret_key))
-    # =====================
 
-    # ====== url map ======
-    # =====================
-
-    # ====== sub app ======
     from .api import api
     app.add_subapp('/api/', api)
-    # =====================
     return app
 
 app = create_app()
